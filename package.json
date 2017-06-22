@@ -1,0 +1,25 @@
+{
+  "name": "codesmithy-doxynode",
+  "version": "1.0.0",
+  "description": "A module to read the Doxygen XML output",
+  "main": "dist/codesmithy-doxynode.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "builddoc": "jsdoc -r src",
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeSmithyIDE/DoxyNode.git"
+  },
+  "author": "Xavier Leclercq <xavier.leclercq@needfulsoftware.com> (https://www.needfulsoftware.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodeSmithyIDE/DoxyNode/issues"
+  },
+  "homepage": "https://github.com/CodeSmithyIDE/DoxyNode#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
