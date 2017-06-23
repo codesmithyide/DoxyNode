@@ -3,7 +3,12 @@
 var doxynode = require("../dist/codesmithy-doxynode.js")
 
 var tf = require("ishiko-test-framework")
+var AddIndexFileTests = require("./IndexFileTests.js")
+var AddDoxygenXMLOutputTests = require("./DoxygenXMLOutputTests.js")
 
 let theTestHarness = new tf.TestHarness("codesmithy-doxynode")
+
+AddIndexFileTests(theTestHarness)
+AddDoxygenXMLOutputTests(theTestHarness)
 
 theTestHarness.run()
