@@ -1,7 +1,8 @@
 'use strict'
 
-var fs = require("fs")
-var xml2js = require("xml2js")
+const path = require('path');
+const fs = require("fs")
+const xml2js = require("xml2js")
 
 /**
   <p>This class provides functions to read the index.xml file of the Doxygen XML output.</p>
@@ -10,6 +11,7 @@ var xml2js = require("xml2js")
 export class IndexFile {
 
     constructor() {
+        this.path = null
         this.classes = [ ]
     }
 
@@ -19,6 +21,7 @@ export class IndexFile {
     */
     readFile(file) {
         let self = this
+        self.path = file
         return new Promise(function(resolve, reject) {
             fs.readFile(file, function(err, data) {
                 if (err) {
@@ -38,5 +41,15 @@ export class IndexFile {
                 }
             })
         })
+    }
+
+    getClassDocumentationFile(name) {
+        let result = null
+        for (let i = 0; i < this.classes.length; ++i) {
+            if (this.classes[i].name == name) {
+                result = path.dirname(this.path) + "/" + this.classes[i].refid + ".xml"
+            }
+        }
+        return result
     }
 }

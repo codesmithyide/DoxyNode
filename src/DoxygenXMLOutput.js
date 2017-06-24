@@ -1,6 +1,7 @@
 'use strict'
 
 import { IndexFile } from "./IndexFile.js"
+import { ClassDocumentation } from "./ClassDocumentation.js"
 
 /**
   <p>This class provides functions to read the XML output produced
@@ -29,6 +30,17 @@ export class DoxygenXMLOutput {
             result.push(this.indexFile.classes[i].name)
         }
         return result
+    }
+
+    readClassDocumentation(name) {
+        let self = this
+        let classDocumentation = new ClassDocumentation()
+        return new Promise(function(resolve, reject) {
+            classDocumentation.readFile(self.indexFile.getClassDocumentationFile(name))
+                .then(function() {
+                    resolve(classDocumentation)
+                })
+        })
     }
 
 }
