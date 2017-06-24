@@ -10,6 +10,7 @@ import { IndexFile } from "./IndexFile.js"
 export class DoxygenXMLOutput {
 
     constructor() {
+        this.indexFile = new IndexFile()
     }
 
     /**
@@ -19,8 +20,11 @@ export class DoxygenXMLOutput {
     */
     initialize(path) {
         let indexFilePath = path + "/index.xml"
-        let indexFile = new IndexFile()
-        indexFile.readFile(indexFilePath)
+        return this.indexFile.readFile(indexFilePath)
+    }
+
+    getListOfClasses() {
+        return this.indexFile.classes
     }
 
 }
