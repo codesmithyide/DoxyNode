@@ -36,7 +36,9 @@ function DoxygenXMLOutputGetListOfClassesTest1(resolve, reject)
             let outcome = tf.TestResultOutcome.eFailed
             let listOfClasses = xmloutput.getListOfClasses()
             if (listOfClasses.length == 1) {
-                outcome = tf.TestResultOutcome.ePassed
+                if (listOfClasses[0] == "Polygon") {
+                    outcome = tf.TestResultOutcome.ePassed
+                }
             }
             resolve(outcome)
     })

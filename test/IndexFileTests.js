@@ -24,7 +24,9 @@ function IndexFileReadTest1(resolve, reject)
         .then(function(data) {
             let outcome = tf.TestResultOutcome.eFailed
             if (indexfile.classes.length == 1) {
-                outcome = tf.TestResultOutcome.ePassed
+                if (indexfile.classes[0].name == "Polygon") {
+                    outcome = tf.TestResultOutcome.ePassed
+                }
             }
             resolve(outcome)
         })

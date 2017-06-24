@@ -24,7 +24,11 @@ export class DoxygenXMLOutput {
     }
 
     getListOfClasses() {
-        return this.indexFile.classes
+        let result = [ ]
+        for (let i = 0; i < this.indexFile.classes.length; ++i) {
+            result.push(this.indexFile.classes[i].name)
+        }
+        return result
     }
 
 }
