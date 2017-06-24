@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/CodeSmithyIDE/DoxyNode#readme",
   "dependencies": {
-    "sax": "^1.2.4"
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "ishiko-test-framework": "^1.0.7",
+    "ishiko-test-framework": "^1.0.8",
     "webpack": "^3.0.0"
   }
 }
