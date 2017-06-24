@@ -10,15 +10,15 @@ module.exports = function(theTestHarness) {
     new tf.FunctionBasedTest("initialize test 1", DoxygenXMLOutputInitializeTest1, testSequence)
 }
 
-function DoxygenXMLOutputCreationTest1()
+function DoxygenXMLOutputCreationTest1(resolve, reject)
 {
     let xmloutput = new doxynode.DoxygenXMLOutput()
-    return tf.TestResultOutcome.ePassed
+    resolve(tf.TestResultOutcome.ePassed)
 }
 
-function DoxygenXMLOutputInitializeTest1()
+function DoxygenXMLOutputInitializeTest1(resolve, reject)
 {
     let xmloutput = new doxynode.DoxygenXMLOutput()
-    xmloutput.initialize(__dirname + "/data/cpp-code-1/xml/index.xml")
-    return tf.TestResultOutcome.ePassed
+    xmloutput.initialize(__dirname + "/data/cpp-code-1/xml")
+    resolve(tf.TestResultOutcome.ePassed)
 }
