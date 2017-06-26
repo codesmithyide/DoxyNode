@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="class_polygon" kind="class" language="C++" prot="public">
+    <compoundname>Polygon</compoundname>
+    <includes refid="_polygon_8h" local="no">Polygon.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_polygon_1a17428a7d7dff4653c905b91020a9f803" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Polygon::draw</definition>
+        <argsstring>()</argsstring>
+        <name>draw</name>
+        <briefdescription>
+<para>Draw the polygon. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Polygon.h" line="6" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class represents a polygon. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Polygon.h" line="3" column="1" bodyfile="Polygon.h" bodystart="2" bodyend="7"/>
+    <listofallmembers>
+      <member refid="class_polygon_1a17428a7d7dff4653c905b91020a9f803" prot="public" virt="non-virtual"><scope>Polygon</scope><name>draw</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

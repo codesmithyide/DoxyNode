@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.11">
+  <compound refid="class_polygon" kind="class"><name>Polygon</name>
+    <member refid="class_polygon_1a17428a7d7dff4653c905b91020a9f803" kind="function"><name>draw</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="_polygon_8h" kind="file"><name>Polygon.h</name>
+  </compound>
+</doxygenindex>
