@@ -17,11 +17,13 @@ class FunctionDocumentation {
     */
     constructor(name, accessibility) {
         this.name = name
-        this.accessibility = this.toAccessibility(accessibility)
+        this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
     }
 
-    toAccessibility(accessibility) {
-        if (typeof accessibility === "Accessibility") {
+    static toAccessibility(accessibility) {
+        if ((accessibility == Accessibility.ePrivate) ||
+            (accessibility == Accessibility.eProtected) ||
+            (accessibility == Accessibility.ePublic)) {
             return accessibility
         } else if (accessibility == "public") {
             return Accessibility.ePublic

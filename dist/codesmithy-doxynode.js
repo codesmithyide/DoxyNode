@@ -257,11 +257,13 @@ class FunctionDocumentation {
     */
     constructor(name, accessibility) {
         this.name = name
-        this.accessibility = this.toAccessibility(accessibility)
+        this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
     }
 
-    toAccessibility(accessibility) {
-        if (typeof accessibility === "Accessibility") {
+    static toAccessibility(accessibility) {
+        if ((accessibility == __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].ePrivate) ||
+            (accessibility == __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].eProtected) ||
+            (accessibility == __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].ePublic)) {
             return accessibility
         } else if (accessibility == "public") {
             return __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].ePublic
@@ -273,6 +275,7 @@ class FunctionDocumentation {
     }
 
 }
+
 
 
 
