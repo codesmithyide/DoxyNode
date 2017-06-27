@@ -5,6 +5,10 @@ import { FunctionDocumentation } from "./FunctionDocumentation.js"
 const fs = require("fs")
 const xml2js = require("xml2js")
 
+/**
+  <p>This class provides functions to read the
+     documentation for a class.</p>
+*/
 export class ClassDocumentation {
 
     constructor() {
@@ -14,6 +18,12 @@ export class ClassDocumentation {
         this.functions = [ ]
     }
 
+    /**
+      Reads the contents of a class documentation file and initialize
+      the object.
+      @param {string} path - The path of the file that contains the 
+        documentation for the class.
+    */
     readFile(file) {
         let self = this
         return new Promise(function(resolve, reject) {

@@ -24,6 +24,9 @@ export class DoxygenXMLOutput {
         return this.indexFile.readFile(indexFilePath)
     }
 
+    /**
+      Gets the list of classes for which documentation exists.
+    */
     getListOfClasses() {
         let result = [ ]
         for (let i = 0; i < this.indexFile.classes.length; ++i) {
@@ -32,6 +35,11 @@ export class DoxygenXMLOutput {
         return result
     }
 
+    /**
+      Reads the file containing the documentation for a given class
+      and returns a promise.
+      @return {Promise}
+    */
     readClassDocumentation(name) {
         let self = this
         let classDocumentation = new ClassDocumentation()

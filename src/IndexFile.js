@@ -43,6 +43,13 @@ export class IndexFile {
         })
     }
 
+    /**
+      Gets the path of the file that contains the documentation
+      for a given class.
+      @param {string} name - The name of the class we want the documentation
+        for.
+      @return {string} The path to the file.
+    */
     getClassDocumentationFile(name) {
         let result = null
         for (let i = 0; i < this.classes.length; ++i) {
