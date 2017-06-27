@@ -53,7 +53,11 @@ function DoxygenXMLOutputReadClassDocumentationTest1(resolve, reject)
         .then(function() {
             xmloutput.readClassDocumentation("Polygon")
                 .then(function(classDocumentation) {
-                    resolve(tf.TestResultOutcome.ePassed)
+                    let outcome = tf.TestResultOutcome.eFailed
+                    if (classDocumentation.name == "Polygon") {
+                        outcome = tf.TestResultOutcome.ePassed
+                    }
+                    resolve(outcome)
                 })
         })
 }

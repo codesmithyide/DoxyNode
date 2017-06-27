@@ -7,7 +7,7 @@
 		exports["CodeSmithyDoxyNode"] = factory(require("fs"), require("xml2js"), require("path"));
 	else
 		root["CodeSmithyDoxyNode"] = factory(root["fs"], root["xml2js"], root["path"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_6__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,7 +80,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-const path = __webpack_require__(6);
+const path = __webpack_require__(7);
 const fs = __webpack_require__(1)
 const xml2js = __webpack_require__(2)
 
@@ -154,6 +154,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__ = __webpack_require__(4);
+
+
 
 
 const fs = __webpack_require__(1)
@@ -162,8 +165,10 @@ const xml2js = __webpack_require__(2)
 class ClassDocumentation {
 
     constructor() {
+        this.name = null
         this.briefdescription = null
         this.detaileddescription = null
+        this.functions = [ ]
     }
 
     readFile(file) {
@@ -175,13 +180,33 @@ class ClassDocumentation {
                 } else {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
+                        self.name = result.doxygen.compounddef[0].compoundname
                         self.briefdescription = result.doxygen.compounddef[0].briefdescription
                         self.detaileddescription = result.doxygen.compounddef[0].detaileddescription
+                        let sectiondef = result.doxygen.compounddef[0].sectiondef
+                        if (sectiondef) {
+                            for (let i = 0; i < sectiondef.length; ++i) {
+                                if (sectiondef[i]['$'].kind == "public-func") {
+                                    let memberdef = sectiondef[i].memberdef
+                                    for (let j = 0; j < memberdef.length; ++j) {
+                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](memberdef[j].name[0]))
+                                    }
+                                }
+                            }
+                        }
                         resolve()                
                     })
                 }
             })
         })
+    }
+
+    getListOfFunctions() {
+        let result = [ ]
+        for (let i = 0; i < this.functions.length; ++i) {
+            result.push(this.functions[i])
+        }
+        return result
     }
 
 }
@@ -194,11 +219,29 @@ class ClassDocumentation {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+
+
+class FunctionDocumentation {
+
+    constructor(name) {
+        this.name = name
+    }
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = FunctionDocumentation;
+
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ClassDocumentation_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FunctionDocumentation_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FunctionDocumentation_js__ = __webpack_require__(4);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "DoxygenXMLOutput", function() { return __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexFile", function() { return __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ClassDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_2__ClassDocumentation_js__["a"]; });
@@ -214,7 +257,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -271,27 +314,10 @@ class DoxygenXMLOutput {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-class FunctionDocumentation {
-
-    constructor() {
-    }
-
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = FunctionDocumentation;
-
-
+module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
 /***/ })
 /******/ ]);

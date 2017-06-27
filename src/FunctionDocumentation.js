@@ -2,7 +2,8 @@
 
 export class FunctionDocumentation {
 
-    constructor() {
+    constructor(name) {
+        this.name = name
     }
 
 }
