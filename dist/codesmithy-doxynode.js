@@ -7,7 +7,7 @@
 		exports["CodeSmithyDoxyNode"] = factory(require("fs"), require("xml2js"), require("path"));
 	else
 		root["CodeSmithyDoxyNode"] = factory(root["fs"], root["xml2js"], root["path"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_7__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_8__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,7 +80,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-const path = __webpack_require__(7);
+const path = __webpack_require__(8);
 const fs = __webpack_require__(1)
 const xml2js = __webpack_require__(2)
 
@@ -123,6 +123,13 @@ class IndexFile {
         })
     }
 
+    /**
+      Gets the path of the file that contains the documentation
+      for a given class.
+      @param {string} name - The name of the class we want the documentation
+        for.
+      @return {string} The path to the file.
+    */
     getClassDocumentationFile(name) {
         let result = null
         for (let i = 0; i < this.classes.length; ++i) {
@@ -162,6 +169,10 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 const fs = __webpack_require__(1)
 const xml2js = __webpack_require__(2)
 
+/**
+  <p>This class provides functions to read the
+     documentation for a class.</p>
+*/
 class ClassDocumentation {
 
     constructor() {
@@ -171,6 +182,12 @@ class ClassDocumentation {
         this.functions = [ ]
     }
 
+    /**
+      Reads the contents of a class documentation file and initialize
+      the object.
+      @param {string} path - The path of the file that contains the 
+        documentation for the class.
+    */
     readFile(file) {
         let self = this
         return new Promise(function(resolve, reject) {
@@ -189,7 +206,7 @@ class ClassDocumentation {
                                 if (sectiondef[i]['$'].kind == "public-func") {
                                     let memberdef = sectiondef[i].memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
-                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](memberdef[j].name[0]))
+                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](memberdef[j].name[0], memberdef[j]['$'].prot))
                                     }
                                 }
                             }
@@ -219,16 +236,43 @@ class ClassDocumentation {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FunctionDocumentation; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__ = __webpack_require__(5);
 
 
+
+
+/**
+  <p>This class stores the documentation for a
+     function.</p>
+*/
 class FunctionDocumentation {
 
-    constructor(name) {
+    /**
+      @param {string} name - The name of the function.
+      @param {Accessibility|string} accessibility - The
+        accessibility of the function. Either one of the
+        Accessibility enum values or one of the strings:
+        "public", "private" or "protected".
+    */
+    constructor(name, accessibility) {
         this.name = name
+        this.accessibility = this.toAccessibility(accessibility)
+    }
+
+    toAccessibility(accessibility) {
+        if (typeof accessibility === "Accessibility") {
+            return accessibility
+        } else if (accessibility == "public") {
+            return __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].ePublic
+        } else if (accessibility == "protected") {
+            return __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].eProtected
+        } else if (accessibility == "private") {
+            return __WEBPACK_IMPORTED_MODULE_0__Accessibility_js__["a" /* Accessibility */].ePrivate
+        }
     }
 
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = FunctionDocumentation;
 
 
 
@@ -237,15 +281,44 @@ class FunctionDocumentation {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Accessibility; });
+
+
+/**
+  An enumeration for the possible access
+  specifiers.
+  @readonly
+  @enum {number}
+*/
+var Accessibility = {
+    /** private access specifier */
+    ePrivate: 0,
+    /** protected access specifier */
+    eProtected: 2,
+    /** public access specifier */
+    ePublic: 4
+}
+
+
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ClassDocumentation_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FunctionDocumentation_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Accessibility_js__ = __webpack_require__(5);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "DoxygenXMLOutput", function() { return __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexFile", function() { return __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ClassDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_2__ClassDocumentation_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FunctionDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_3__FunctionDocumentation_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Accessibility", function() { return __WEBPACK_IMPORTED_MODULE_4__Accessibility_js__["a"]; });
+
 
 
 
@@ -257,7 +330,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -289,6 +362,9 @@ class DoxygenXMLOutput {
         return this.indexFile.readFile(indexFilePath)
     }
 
+    /**
+      Gets the list of classes for which documentation exists.
+    */
     getListOfClasses() {
         let result = [ ]
         for (let i = 0; i < this.indexFile.classes.length; ++i) {
@@ -297,6 +373,11 @@ class DoxygenXMLOutput {
         return result
     }
 
+    /**
+      Reads the file containing the documentation for a given class
+      and returns a promise.
+      @return {Promise}
+    */
     readClassDocumentation(name) {
         let self = this
         let classDocumentation = new __WEBPACK_IMPORTED_MODULE_1__ClassDocumentation_js__["a" /* ClassDocumentation */]()
@@ -314,10 +395,10 @@ class DoxygenXMLOutput {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
 
 /***/ })
 /******/ ]);

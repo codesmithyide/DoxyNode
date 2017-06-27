@@ -26,7 +26,9 @@ function ClassDocumentationGetListOfFunctionsTest1(resolve, reject)
                 .then(function(classDocumentation) {
                     let outcome = tf.TestResultOutcome.eFailed
                     let functions = classDocumentation.getListOfFunctions()
-                    if ((functions.length == 1) && (functions[0].name == "draw")) {
+                    if ((functions.length == 1) && 
+                        (functions[0].name == "draw") &&
+                        (functions[0].accessibility == doxynode.Accessibility.ePublic)) {
                         outcome = tf.TestResultOutcome.ePassed
                     }
                     resolve(outcome)
