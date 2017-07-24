@@ -7,7 +7,7 @@
 		exports["CodeSmithyDoxyNode"] = factory(require("fs"), require("xml2js"), require("path"));
 	else
 		root["CodeSmithyDoxyNode"] = factory(root["fs"], root["xml2js"], root["path"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_8__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_9__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -80,7 +80,7 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-const path = __webpack_require__(8);
+const path = __webpack_require__(9);
 const fs = __webpack_require__(1)
 const xml2js = __webpack_require__(2)
 
@@ -162,6 +162,8 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Description_js__ = __webpack_require__(6);
+
 
 
 
@@ -209,7 +211,9 @@ class ClassDocumentation {
                                         self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
                                             memberdef[j].name[0],
                                             memberdef[j].type[0],
-                                            memberdef[j]['$'].prot))
+                                            memberdef[j]['$'].prot,
+                                            new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
+                                            new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0])))
                                     }
                                 }
                             }
@@ -258,11 +262,15 @@ class FunctionDocumentation {
         accessibility of the function. Either one of the
         Accessibility enum values or one of the strings:
         "public", "private" or "protected".
+      @param {Description} briefdescription - The brief description.
+      @param {Description} detaileddescription - The detailed description.
     */
-    constructor(name, returnType, accessibility) {
+    constructor(name, returnType, accessibility, briefdescription, detaileddescription) {
         this.name = name
         this.returnType = returnType
         this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
+        this.briefdescription = briefdescription
+        this.detaileddescription = detaileddescription
     }
 
     static toAccessibility(accessibility) {
@@ -315,10 +323,32 @@ var Accessibility = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Description; });
+
+
+/**
+  <p>This class stores the contents of a brief or
+     detailed description.</p>
+*/
+class Description {
+
+    constructor(description) {
+    }
+
+}
+
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ClassDocumentation_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FunctionDocumentation_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Accessibility_js__ = __webpack_require__(5);
@@ -341,7 +371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -406,24 +436,10 @@ class DoxygenXMLOutput {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Description; });
-
-
-class Description {
-}
-
-
-
+module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
 
 /***/ })
 /******/ ]);

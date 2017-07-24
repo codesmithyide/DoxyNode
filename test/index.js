@@ -3,8 +3,9 @@
 var doxynode = require("../dist/codesmithy-doxynode.js")
 
 var tf = require("ishiko-test-framework")
-var AddClassDocumentationTests = require("./ClassDocumentationTests.js")
 var AddFunctionDocumentationTests = require("./FunctionDocumentationTests.js")
+var AddClassDocumentationTests = require("./ClassDocumentationTests.js")
+var AddDescriptionTests = require("./DescriptionTests.js")
 var AddIndexFileTests = require("./IndexFileTests.js")
 var AddDoxygenXMLOutputTests = require("./DoxygenXMLOutputTests.js")
 
@@ -12,8 +13,9 @@ let theTestHarness = new tf.TestHarness("codesmithy-doxynode")
 
 theTestHarness.environment.setTestDataDirectory("data")
 
-AddClassDocumentationTests(theTestHarness)
 AddFunctionDocumentationTests(theTestHarness)
+AddClassDocumentationTests(theTestHarness)
+AddDescriptionTests(theTestHarness)
 AddIndexFileTests(theTestHarness)
 AddDoxygenXMLOutputTests(theTestHarness)
 

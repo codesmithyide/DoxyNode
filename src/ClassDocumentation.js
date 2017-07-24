@@ -1,6 +1,7 @@
 'use strict'
 
 import { FunctionDocumentation } from "./FunctionDocumentation.js"
+import { Description } from "./Description.js"
 
 const fs = require("fs")
 const xml2js = require("xml2js")
@@ -45,7 +46,9 @@ export class ClassDocumentation {
                                         self.functions.push(new FunctionDocumentation(
                                             memberdef[j].name[0],
                                             memberdef[j].type[0],
-                                            memberdef[j]['$'].prot))
+                                            memberdef[j]['$'].prot,
+                                            new Description(memberdef[j].briefdescription[0]),
+                                            new Description(memberdef[j].detaileddescription[0])))
                                     }
                                 }
                             }
