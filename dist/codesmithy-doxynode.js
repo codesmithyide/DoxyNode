@@ -206,7 +206,10 @@ class ClassDocumentation {
                                 if (sectiondef[i]['$'].kind == "public-func") {
                                     let memberdef = sectiondef[i].memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
-                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](memberdef[j].name[0], memberdef[j]['$'].prot))
+                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
+                                            memberdef[j].name[0],
+                                            memberdef[j].type[0],
+                                            memberdef[j]['$'].prot))
                                     }
                                 }
                             }
@@ -250,13 +253,15 @@ class FunctionDocumentation {
 
     /**
       @param {string} name - The name of the function.
+      @paran {string} returnType - The return type of the function.
       @param {Accessibility|string} accessibility - The
         accessibility of the function. Either one of the
         Accessibility enum values or one of the strings:
         "public", "private" or "protected".
     */
-    constructor(name, accessibility) {
+    constructor(name, returnType, accessibility) {
         this.name = name
+        this.returnType = returnType
         this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
     }
 
@@ -313,14 +318,17 @@ var Accessibility = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ClassDocumentation_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FunctionDocumentation_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Accessibility_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ClassDocumentation_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FunctionDocumentation_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Accessibility_js__ = __webpack_require__(5);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "DoxygenXMLOutput", function() { return __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexFile", function() { return __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ClassDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_2__ClassDocumentation_js__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FunctionDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_3__FunctionDocumentation_js__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Accessibility", function() { return __WEBPACK_IMPORTED_MODULE_4__Accessibility_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Description", function() { return __WEBPACK_IMPORTED_MODULE_2__Description_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "ClassDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_3__ClassDocumentation_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FunctionDocumentation", function() { return __WEBPACK_IMPORTED_MODULE_4__FunctionDocumentation_js__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Accessibility", function() { return __WEBPACK_IMPORTED_MODULE_5__Accessibility_js__["a"]; });
+
 
 
 
@@ -402,6 +410,20 @@ class DoxygenXMLOutput {
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Description; });
+
+
+class Description {
+}
+
+
+
 
 /***/ })
 /******/ ]);

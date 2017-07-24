@@ -13,8 +13,9 @@ module.exports = function(theTestHarness) {
 function FunctionDocumentationCreationTest1(resolve, reject)
 {
     let outcome = tf.TestResultOutcome.eFailed
-    let functiondocumentation = new doxynode.FunctionDocumentation("name1", "public")
+    let functiondocumentation = new doxynode.FunctionDocumentation("name1", "void", "public")
     if ((functiondocumentation.name == "name1") &&
+        (functiondocumentation.returnType == "void") &&
         (functiondocumentation.accessibility == doxynode.Accessibility.ePublic)) {
         outcome = tf.TestResultOutcome.ePassed
     }
@@ -24,8 +25,9 @@ function FunctionDocumentationCreationTest1(resolve, reject)
 function FunctionDocumentationCreationTest2(resolve, reject)
 {
     let outcome = tf.TestResultOutcome.eFailed
-    let functiondocumentation = new doxynode.FunctionDocumentation("name1", doxynode.Accessibility.ePrivate)
+    let functiondocumentation = new doxynode.FunctionDocumentation("name1", "void", doxynode.Accessibility.ePrivate)
     if ((functiondocumentation.name == "name1") &&
+        (functiondocumentation.returnType == "void") &&
         (functiondocumentation.accessibility == doxynode.Accessibility.ePrivate)) {
         outcome = tf.TestResultOutcome.ePassed
     }

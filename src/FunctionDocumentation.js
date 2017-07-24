@@ -10,13 +10,15 @@ class FunctionDocumentation {
 
     /**
       @param {string} name - The name of the function.
+      @paran {string} returnType - The return type of the function.
       @param {Accessibility|string} accessibility - The
         accessibility of the function. Either one of the
         Accessibility enum values or one of the strings:
         "public", "private" or "protected".
     */
-    constructor(name, accessibility) {
+    constructor(name, returnType, accessibility) {
         this.name = name
+        this.returnType = returnType
         this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
     }
 

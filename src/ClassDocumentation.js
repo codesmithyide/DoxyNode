@@ -42,7 +42,10 @@ export class ClassDocumentation {
                                 if (sectiondef[i]['$'].kind == "public-func") {
                                     let memberdef = sectiondef[i].memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
-                                        self.functions.push(new FunctionDocumentation(memberdef[j].name[0], memberdef[j]['$'].prot))
+                                        self.functions.push(new FunctionDocumentation(
+                                            memberdef[j].name[0],
+                                            memberdef[j].type[0],
+                                            memberdef[j]['$'].prot))
                                     }
                                 }
                             }
