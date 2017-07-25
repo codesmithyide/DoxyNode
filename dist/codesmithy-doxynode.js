@@ -200,8 +200,8 @@ class ClassDocumentation {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
                         self.name = result.doxygen.compounddef[0].compoundname
-                        self.briefdescription = result.doxygen.compounddef[0].briefdescription
-                        self.detaileddescription = result.doxygen.compounddef[0].detaileddescription
+                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
+                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
                         let sectiondef = result.doxygen.compounddef[0].sectiondef
                         if (sectiondef) {
                             for (let i = 0; i < sectiondef.length; ++i) {
