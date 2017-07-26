@@ -8,6 +8,8 @@ module.exports = function(theTestHarness) {
 
     new tf.FunctionBasedTest("Creation test 1", ClassDocumentationCreationTest1, testSequence)
 
+    new tf.FunctionBasedTest("readFile test 1", ClassDocumentationReadFileTest1, testSequence)
+
     new tf.FunctionBasedTest("getListOfFunctions test 1", ClassDocumentationGetListOfFunctionsTest1, testSequence)
 }
 
@@ -15,6 +17,19 @@ function ClassDocumentationCreationTest1(resolve, reject)
 {
     let classdocumentation = new doxynode.ClassDocumentation()
     resolve(tf.TestResultOutcome.ePassed)
+}
+
+function ClassDocumentationReadFileTest1(resolve, reject)
+{
+    let classdocumentation = new doxynode.ClassDocumentation()
+    classdocumentation.readFile(__dirname + "/data/cpp-code-2/xml/class_polygon.xml")
+        .then(function() {
+            let outcome = tf.TestResultOutcome.eFailed
+            if (classdocumentation.briefdescription.toHTML() == "<p>This class represents a polygon.</p>") {
+                outcome = tf.TestResultOutcome.ePassed
+            }
+            resolve(outcome)
+        })
 }
 
 function ClassDocumentationGetListOfFunctionsTest1(resolve, reject)
