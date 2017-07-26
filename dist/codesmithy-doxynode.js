@@ -113,7 +113,7 @@ class IndexFile {
                         for (let i = 0; i < compounds.length; ++i) {
                             let compound = compounds[i]
                             if (compound["$"].kind == "class") {
-                                self.classes.push({ name: compound.name, refid: compound["$"].refid })
+                                self.classes.push({ name: compound.name[0], refid: compound["$"].refid })
                             }
                         }
                         resolve()                
@@ -199,7 +199,7 @@ class ClassDocumentation {
                 } else {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
-                        self.name = result.doxygen.compounddef[0].compoundname
+                        self.name = result.doxygen.compounddef[0].compoundname[0]
                         self.briefdescription = new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
                         self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
                         let sectiondef = result.doxygen.compounddef[0].sectiondef

@@ -25,7 +25,8 @@ function ClassDocumentationReadFileTest1(resolve, reject)
     classdocumentation.readFile(__dirname + "/data/cpp-code-2/xml/class_polygon.xml")
         .then(function() {
             let outcome = tf.TestResultOutcome.eFailed
-            if (classdocumentation.briefdescription.toHTML() == "<p>This class represents a polygon.</p>") {
+            if ((classdocumentation.name === "Polygon") &&
+                (classdocumentation.briefdescription.toHTML() == "<p>This class represents a polygon.</p>")) {
                 outcome = tf.TestResultOutcome.ePassed
             }
             resolve(outcome)

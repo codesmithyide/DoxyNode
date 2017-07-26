@@ -33,7 +33,7 @@ export class IndexFile {
                         for (let i = 0; i < compounds.length; ++i) {
                             let compound = compounds[i]
                             if (compound["$"].kind == "class") {
-                                self.classes.push({ name: compound.name, refid: compound["$"].refid })
+                                self.classes.push({ name: compound.name[0], refid: compound["$"].refid })
                             }
                         }
                         resolve()                

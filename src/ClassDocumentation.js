@@ -34,7 +34,7 @@ export class ClassDocumentation {
                 } else {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
-                        self.name = result.doxygen.compounddef[0].compoundname
+                        self.name = result.doxygen.compounddef[0].compoundname[0]
                         self.briefdescription = new Description(result.doxygen.compounddef[0].briefdescription)
                         self.detaileddescription = new Description(result.doxygen.compounddef[0].detaileddescription)
                         let sectiondef = result.doxygen.compounddef[0].sectiondef
