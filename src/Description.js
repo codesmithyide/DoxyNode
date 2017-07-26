@@ -12,12 +12,26 @@ class Description {
 
     toHTML() {
         let result = ""
-        if (this.description.para) {
-            for (let i = 0; i < this.description.para.length; i++) {
-                if (this.description.para[0]["_"] == null) {
-                    result += "<p>" + this.trim(this.description.para[0]) + "</p>"
-                } else {
-                    result += "<p>" + this.trim(this.description.para[0]["_"]) + "</p>"
+        if (Array.isArray(this.description)) {
+            for (let i = 0; i < this.description.length; i++) {
+                if (this.description[i].para) {
+                    for (let j = 0; i < this.description[i].para.length; i++) {
+                        if (this.description[i].para[j]["_"] == null) {
+                            result += "<p>" + this.trim(this.description[i].para[j]) + "</p>"
+                        } else {
+                            result += "<p>" + this.trim(this.description[i].para[j]["_"]) + "</p>"
+                        }
+                    }
+                }
+            }
+        } else {
+            if (this.description.para) {
+                for (let i = 0; i < this.description.para.length; i++) {
+                    if (this.description.para[i]["_"] == null) {
+                        result += "<p>" + this.trim(this.description.para[i]) + "</p>"
+                    } else {
+                        result += "<p>" + this.trim(this.description.para[i]["_"]) + "</p>"
+                    }
                 }
             }
         }
