@@ -8,6 +8,7 @@ var AddClassDocumentationTests = require("./ClassDocumentationTests.js")
 var AddDescriptionTests = require("./DescriptionTests.js")
 var AddIndexFileTests = require("./IndexFileTests.js")
 var AddDoxygenXMLOutputTests = require("./DoxygenXMLOutputTests.js")
+var AddGroupDocumentationTests = require("./GroupDocumentationTests.js")
 
 let theTestHarness = new tf.TestHarness("codesmithy-doxynode")
 
@@ -18,5 +19,6 @@ AddClassDocumentationTests(theTestHarness)
 AddDescriptionTests(theTestHarness)
 AddIndexFileTests(theTestHarness)
 AddDoxygenXMLOutputTests(theTestHarness)
+AddGroupDocumentationTests(theTestHarness)
 
 theTestHarness.run()
