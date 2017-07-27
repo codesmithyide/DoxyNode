@@ -1,6 +1,7 @@
 #include "Polygon.h"
 
 /// This class represents a rectangle.
+/// \ingroup Shapes
 class Rectangle : public Polygon
 {
 public:

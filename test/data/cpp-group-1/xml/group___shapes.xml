@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="group___shapes" kind="group">
+    <compoundname>Shapes</compoundname>
+    <title>Shapes: classes that represent geometric shapes.</title>
+    <innerclass refid="class_polygon" prot="public">Polygon</innerclass>
+    <innerclass refid="class_rectangle" prot="public">Rectangle</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

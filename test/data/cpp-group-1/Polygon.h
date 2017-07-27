@@ -1,5 +1,5 @@
 /**
-\defgroup Shapes
+\defgroup Shapes Shapes: classes that represent geometric shapes.
 */
 
 
