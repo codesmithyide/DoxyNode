@@ -5,6 +5,7 @@ import { IndexFile } from "./IndexFile.js"
 import { Description } from "./Description.js"
 import { ClassDocumentation } from "./ClassDocumentation.js"
 import { FunctionDocumentation } from "./FunctionDocumentation.js"
+import { GroupDocumentation } from "./GroupDocumentation.js"
 import { Accessibility } from "./Accessibility.js"
 
 export {
@@ -13,5 +14,6 @@ export {
     Description,
     ClassDocumentation,
     FunctionDocumentation,
+    GroupDocumentation,
     Accessibility 
 }
