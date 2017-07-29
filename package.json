@@ -22,7 +22,7 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "ishiko-test-framework": "^1.0.8",
-    "webpack": "^3.0.0"
+    "ishiko-test-framework": "^1.0.9",
+    "webpack": "^3.4.1"
   }
 }
