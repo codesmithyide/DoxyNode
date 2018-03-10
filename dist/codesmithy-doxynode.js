@@ -161,8 +161,10 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Description_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
+
 
 
 
@@ -179,6 +181,7 @@ class ClassDocumentation {
 
     constructor() {
         this.name = null
+        this.baseClasses = null
         this.briefdescription = null
         this.detaileddescription = null
         this.functions = [ ]
@@ -200,20 +203,20 @@ class ClassDocumentation {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
                         self.name = result.doxygen.compounddef[0].compoundname[0]
-                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
-                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
+                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
+                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
                         let sectiondef = result.doxygen.compounddef[0].sectiondef
                         if (sectiondef) {
                             for (let i = 0; i < sectiondef.length; ++i) {
                                 if (sectiondef[i]['$'].kind == "public-func") {
                                     let memberdef = sectiondef[i].memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
-                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_0__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
+                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
                                             memberdef[j].name[0],
                                             memberdef[j].type[0],
                                             memberdef[j]['$'].prot,
-                                            new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
-                                            new __WEBPACK_IMPORTED_MODULE_1__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0])))
+                                            new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
+                                            new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0])))
                                     }
                                 }
                             }
@@ -223,6 +226,10 @@ class ClassDocumentation {
                 }
             })
         })
+    }
+
+    getBaseClasses() {
+        return this.baseClasses
     }
 
     getListOfFunctions() {
@@ -389,7 +396,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ClassDocumentation_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FunctionDocumentation_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GroupDocumentation_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GroupDocumentation_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Accessibility_js__ = __webpack_require__(5);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "DoxygenXMLOutput", function() { return __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexFile", function() { return __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__["a"]; });
@@ -484,6 +491,24 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
 
 /***/ }),
 /* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export InheritanceRelationship */
+
+
+/**
+  <p>This class stores the details of
+     an inheritance relationship.</p>
+*/
+class InheritanceRelationship {
+}
+
+
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

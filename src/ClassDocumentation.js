@@ -1,5 +1,6 @@
 'use strict'
 
+import { InheritanceRelationship } from "./InheritanceRelationship.js"
 import { FunctionDocumentation } from "./FunctionDocumentation.js"
 import { Description } from "./Description.js"
 
@@ -14,6 +15,7 @@ export class ClassDocumentation {
 
     constructor() {
         this.name = null
+        this.baseClasses = null
         this.briefdescription = null
         this.detaileddescription = null
         this.functions = [ ]
@@ -58,6 +60,10 @@ export class ClassDocumentation {
                 }
             })
         })
+    }
+
+    getBaseClasses() {
+        return this.baseClasses
     }
 
     getListOfFunctions() {
