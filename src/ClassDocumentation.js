@@ -15,7 +15,7 @@ export class ClassDocumentation {
 
     constructor() {
         this.name = null
-        this.baseClasses = null
+        this.baseclasses = [ ]
         this.briefdescription = null
         this.detaileddescription = null
         this.functions = [ ]
@@ -39,6 +39,9 @@ export class ClassDocumentation {
                         self.name = result.doxygen.compounddef[0].compoundname[0]
                         self.briefdescription = new Description(result.doxygen.compounddef[0].briefdescription)
                         self.detaileddescription = new Description(result.doxygen.compounddef[0].detaileddescription)
+                        if (result.doxygen.compounddef[0].basecompoundref != null) {
+                            self.baseclasses.push(new InheritanceRelationship(result.doxygen.compounddef[0].basecompoundref[0]._))
+                        }
                         let sectiondef = result.doxygen.compounddef[0].sectiondef
                         if (sectiondef) {
                             for (let i = 0; i < sectiondef.length; ++i) {
@@ -63,7 +66,11 @@ export class ClassDocumentation {
     }
 
     getBaseClasses() {
-        return this.baseClasses
+        let result = [ ]
+        for (let i = 0; i < this.baseclasses.length; ++i) {
+            result.push(this.baseclasses[i])
+        }
+        return result
     }
 
     getListOfFunctions() {

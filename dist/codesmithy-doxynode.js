@@ -181,7 +181,7 @@ class ClassDocumentation {
 
     constructor() {
         this.name = null
-        this.baseClasses = null
+        this.baseclasses = [ ]
         this.briefdescription = null
         this.detaileddescription = null
         this.functions = [ ]
@@ -205,6 +205,9 @@ class ClassDocumentation {
                         self.name = result.doxygen.compounddef[0].compoundname[0]
                         self.briefdescription = new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
                         self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
+                        if (result.doxygen.compounddef[0].basecompoundref != null) {
+                            self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](result.doxygen.compounddef[0].basecompoundref[0]._))
+                        }
                         let sectiondef = result.doxygen.compounddef[0].sectiondef
                         if (sectiondef) {
                             for (let i = 0; i < sectiondef.length; ++i) {
@@ -229,7 +232,11 @@ class ClassDocumentation {
     }
 
     getBaseClasses() {
-        return this.baseClasses
+        let result = [ ]
+        for (let i = 0; i < this.baseclasses.length; ++i) {
+            result.push(this.baseclasses[i])
+        }
+        return result
     }
 
     getListOfFunctions() {
@@ -494,7 +501,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export InheritanceRelationship */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InheritanceRelationship; });
 
 
 /**
@@ -502,6 +509,14 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
      an inheritance relationship.</p>
 */
 class InheritanceRelationship {
+
+    constructor(baseclassname) {
+        this.baseclassname = baseclassname
+    }
+
+    getBaseClassName() {
+        return this.baseclassname
+    }
 }
 
 
