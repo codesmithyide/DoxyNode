@@ -2,6 +2,7 @@
 
 import { IndexFile } from "./IndexFile.js"
 import { ClassDocumentation } from "./ClassDocumentation.js"
+import { GroupDocumentation } from "./GroupDocumentation.js"
 
 /**
   <p>This class provides functions to read the XML output produced
@@ -47,6 +48,17 @@ export class DoxygenXMLOutput {
             classDocumentation.readFile(self.indexFile.getClassDocumentationFile(name))
                 .then(function() {
                     resolve(classDocumentation)
+                })
+        })
+    }
+
+    readGroupDocumentation(name) {
+        let self = this
+        let groupDocumentation = new GroupDocumentation()
+        return new Promise(function(resolve, reject) {
+            groupDocumentation.readFile(self.indexFile.getGroupDocumentationFile(name))
+                .then(function() {
+                    resolve(groupDocumentation)
                 })
         })
     }

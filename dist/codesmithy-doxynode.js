@@ -7,7 +7,7 @@
 		exports["CodeSmithyDoxyNode"] = factory(require("fs"), require("xml2js"), require("path"));
 	else
 		root["CodeSmithyDoxyNode"] = factory(root["fs"], root["xml2js"], root["path"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_9__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_10__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,7 +92,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 "use strict";
 
 
-const path = __webpack_require__(9);
+const path = __webpack_require__(10);
 const fs = __webpack_require__(0)
 const xml2js = __webpack_require__(1)
 
@@ -174,7 +174,7 @@ class IndexFile {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
 
@@ -410,13 +410,62 @@ class Description {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupDocumentation; });
+
+
+const fs = __webpack_require__(0)
+const xml2js = __webpack_require__(1)
+
+/**
+  <p>This class stores the details of a group created
+     by the \defgroup doxygen command.</p>
+*/
+class GroupDocumentation {
+
+    constructor() {
+        this.name = null
+        this.members = [ ]
+    }
+
+    readFile(file) {
+        let self = this
+        return new Promise(function(resolve, reject) {
+            fs.readFile(file, function(err, data) {
+                if (err) {
+                    reject(err)
+                } else {
+                    let parser = new xml2js.Parser();
+                    parser.parseString(data, function (err, result) {
+                        self.name = result.doxygen.compounddef[0].compoundname[0]
+                        let innerclass = result.doxygen.compounddef[0].innerclass
+                        if (innerclass) {
+                            for (let i = 0; i < innerclass.length; ++i) {
+                                self.members.push(innerclass[i]._)
+                            }
+                        }
+                        resolve()
+                    })
+                }
+            })
+        })
+    }
+}
+
+
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ClassDocumentation_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FunctionDocumentation_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GroupDocumentation_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__GroupDocumentation_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Accessibility_js__ = __webpack_require__(5);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "DoxygenXMLOutput", function() { return __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "IndexFile", function() { return __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__["a"]; });
@@ -439,12 +488,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IndexFile_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ClassDocumentation_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GroupDocumentation_js__ = __webpack_require__(7);
+
 
 
 
@@ -498,19 +549,30 @@ class DoxygenXMLOutput {
         })
     }
 
+    readGroupDocumentation(name) {
+        let self = this
+        let groupDocumentation = new __WEBPACK_IMPORTED_MODULE_2__GroupDocumentation_js__["a" /* GroupDocumentation */]()
+        return new Promise(function(resolve, reject) {
+            groupDocumentation.readFile(self.indexFile.getGroupDocumentationFile(name))
+                .then(function() {
+                    resolve(groupDocumentation)
+                })
+        })
+    }
+
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = DoxygenXMLOutput;
 
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_10__;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -529,55 +591,6 @@ class InheritanceRelationship {
 
     getBaseClassName() {
         return this.baseclassname
-    }
-}
-
-
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupDocumentation; });
-
-
-const fs = __webpack_require__(0)
-const xml2js = __webpack_require__(1)
-
-/**
-  <p>This class stores the details of a group created
-     by the \defgroup doxygen command.</p>
-*/
-class GroupDocumentation {
-
-    constructor() {
-        this.name = null
-        this.members = [ ]
-    }
-
-    readFile(file) {
-        let self = this
-        return new Promise(function(resolve, reject) {
-            fs.readFile(file, function(err, data) {
-                if (err) {
-                    reject(err)
-                } else {
-                    let parser = new xml2js.Parser();
-                    parser.parseString(data, function (err, result) {
-                        self.name = result.doxygen.compounddef[0].compoundname[0]
-                        let innerclass = result.doxygen.compounddef[0].innerclass
-                        if (innerclass) {
-                            for (let i = 0; i < innerclass.length; ++i) {
-                                self.members.push(innerclass[i]._)
-                            }
-                        }
-                        resolve()
-                    })
-                }
-            })
-        })
     }
 }
 
