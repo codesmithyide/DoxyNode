@@ -11,6 +11,7 @@ class GroupDocumentation {
 
     constructor() {
         this.name = null
+        this.members = [ ]
     }
 
     readFile(file) {
@@ -23,6 +24,12 @@ class GroupDocumentation {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
                         self.name = result.doxygen.compounddef[0].compoundname[0]
+                        let innerclass = result.doxygen.compounddef[0].innerclass
+                        if (innerclass) {
+                            for (let i = 0; i < innerclass.length; ++i) {
+                                self.members.push(innerclass[i]._)
+                            }
+                        }
                         resolve()
                     })
                 }

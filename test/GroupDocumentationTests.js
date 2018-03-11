@@ -23,7 +23,11 @@ function GroupDocumentationReadFileTest1(resolve, reject) {
         .then(function () {
             let outcome = tf.TestResultOutcome.eFailed
             if (groupdocumentation.name === "Shapes") {
-                outcome = tf.TestResultOutcome.ePassed
+                if ((groupdocumentation.members.length == 2) &&
+                    (groupdocumentation.members[0] === "Polygon") &&
+                    (groupdocumentation.members[1] === "Rectangle")) {
+                    outcome = tf.TestResultOutcome.ePassed
+                }
             }
             resolve(outcome)
         })
