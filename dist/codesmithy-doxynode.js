@@ -7,7 +7,7 @@
 		exports["CodeSmithyDoxyNode"] = factory(require("fs"), require("xml2js"), require("path"));
 	else
 		root["CodeSmithyDoxyNode"] = factory(root["fs"], root["xml2js"], root["path"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_9__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_9__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -75,14 +75,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 
 const path = __webpack_require__(9);
-const fs = __webpack_require__(1)
-const xml2js = __webpack_require__(2)
+const fs = __webpack_require__(0)
+const xml2js = __webpack_require__(1)
 
 /**
   <p>This class provides functions to read the index.xml file of the Doxygen XML output.</p>
@@ -93,6 +105,7 @@ class IndexFile {
     constructor() {
         this.path = null
         this.classes = [ ]
+        this.groups = [ ]
     }
 
     /**
@@ -114,6 +127,8 @@ class IndexFile {
                             let compound = compounds[i]
                             if (compound["$"].kind == "class") {
                                 self.classes.push({ name: compound.name[0], refid: compound["$"].refid })
+                            } else if (compound["$"].kind == "group") {
+                                self.groups.push({ name: compound.name[0], refid: compound["$"].refid })
                             }
                         }
                         resolve()                
@@ -139,22 +154,20 @@ class IndexFile {
         }
         return result
     }
+
+    getGroupDocumentationFile(name) {
+        let result = null
+        for (let i = 0; i < this.groups.length; ++i) {
+            if (this.groups[i].name == name) {
+                result = path.dirname(this.path) + "/" + this.groups[i].refid + ".xml"
+            }
+        }
+        return result
+    }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = IndexFile;
 
 
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 /***/ }),
 /* 3 */
@@ -170,8 +183,8 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
 
 
 
-const fs = __webpack_require__(1)
-const xml2js = __webpack_require__(2)
+const fs = __webpack_require__(0)
+const xml2js = __webpack_require__(1)
 
 /**
   <p>This class provides functions to read the
@@ -224,7 +237,7 @@ class ClassDocumentation {
                                 }
                             }
                         }
-                        resolve()                
+                        resolve()  
                     })
                 }
             })
@@ -399,7 +412,7 @@ class Description {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DoxygenXMLOutput_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__IndexFile_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ClassDocumentation_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FunctionDocumentation_js__ = __webpack_require__(4);
@@ -430,7 +443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IndexFile_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__IndexFile_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ClassDocumentation_js__ = __webpack_require__(3);
 
 
@@ -530,6 +543,9 @@ class InheritanceRelationship {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupDocumentation; });
 
 
+const fs = __webpack_require__(0)
+const xml2js = __webpack_require__(1)
+
 /**
   <p>This class stores the details of a group created
      by the \defgroup doxygen command.</p>
@@ -537,8 +553,25 @@ class InheritanceRelationship {
 class GroupDocumentation {
 
     constructor() {
+        this.name = null
     }
 
+    readFile(file) {
+        let self = this
+        return new Promise(function(resolve, reject) {
+            fs.readFile(file, function(err, data) {
+                if (err) {
+                    reject(err)
+                } else {
+                    let parser = new xml2js.Parser();
+                    parser.parseString(data, function (err, result) {
+                        self.name = result.doxygen.compounddef[0].compoundname[0]
+                        resolve()
+                    })
+                }
+            })
+        })
+    }
 }
 
 

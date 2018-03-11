@@ -58,7 +58,7 @@ export class ClassDocumentation {
                                 }
                             }
                         }
-                        resolve()                
+                        resolve()  
                     })
                 }
             })

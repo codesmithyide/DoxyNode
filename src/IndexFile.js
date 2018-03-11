@@ -13,6 +13,7 @@ export class IndexFile {
     constructor() {
         this.path = null
         this.classes = [ ]
+        this.groups = [ ]
     }
 
     /**
@@ -34,6 +35,8 @@ export class IndexFile {
                             let compound = compounds[i]
                             if (compound["$"].kind == "class") {
                                 self.classes.push({ name: compound.name[0], refid: compound["$"].refid })
+                            } else if (compound["$"].kind == "group") {
+                                self.groups.push({ name: compound.name[0], refid: compound["$"].refid })
                             }
                         }
                         resolve()                
@@ -55,6 +58,16 @@ export class IndexFile {
         for (let i = 0; i < this.classes.length; ++i) {
             if (this.classes[i].name == name) {
                 result = path.dirname(this.path) + "/" + this.classes[i].refid + ".xml"
+            }
+        }
+        return result
+    }
+
+    getGroupDocumentationFile(name) {
+        let result = null
+        for (let i = 0; i < this.groups.length; ++i) {
+            if (this.groups[i].name == name) {
+                result = path.dirname(this.path) + "/" + this.groups[i].refid + ".xml"
             }
         }
         return result

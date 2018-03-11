@@ -9,6 +9,7 @@ module.exports = function(theTestHarness) {
     new tf.FunctionBasedTest("Creation test 1", IndexFileCreationTest1, testSequence)
     new tf.FunctionBasedTest("readFile test 1", IndexFileReadTest1, testSequence)
     new tf.FunctionBasedTest("readFile test 2", IndexFileReadTest2, testSequence)
+    new tf.FunctionBasedTest("readFile test 3", IndexFileReadTest3, testSequence)
 }
 
 function IndexFileCreationTest1(resolve, reject)
@@ -36,7 +37,25 @@ function IndexFileReadTest1(resolve, reject)
         })
 }
 
-function IndexFileReadTest2(resolve, reject)
+function IndexFileReadTest2(resolve, reject) {
+    let indexfile = new doxynode.IndexFile()
+    indexfile.readFile(__dirname + "/data/cpp-group-1/xml/index.xml")
+        .then(function (data) {
+            let outcome = tf.TestResultOutcome.eFailed
+            if (indexfile.groups.length == 1) {
+                if ((indexfile.groups[0].name == "Shapes") &&
+                    (indexfile.groups[0].refid == "group___shapes")) {
+                    outcome = tf.TestResultOutcome.ePassed
+                }
+            }
+            resolve(outcome)
+        })
+        .catch(function () {
+            resolve(tf.TestResultOutcome.eFailed)
+        })
+}
+
+function IndexFileReadTest3(resolve, reject)
 {
     let indexfile = new doxynode.IndexFile()
     indexfile.readFile(__dirname + "/doesnotexist.xml")
