@@ -176,7 +176,9 @@ class IndexFile {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Description_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Parameter_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Description_js__ = __webpack_require__(6);
+
 
 
 
@@ -216,8 +218,8 @@ class ClassDocumentation {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
                         self.name = result.doxygen.compounddef[0].compoundname[0]
-                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
-                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
+                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
+                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
                         if (result.doxygen.compounddef[0].basecompoundref != null) {
                             self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](result.doxygen.compounddef[0].basecompoundref[0]._))
                         }
@@ -227,12 +229,19 @@ class ClassDocumentation {
                                 if (sectiondef[i]['$'].kind == "public-func") {
                                     let memberdef = sectiondef[i].memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
-                                        self.functions.push(new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
+                                        let newFunctionDocumentation = new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
                                             memberdef[j].name[0],
-                                            new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].type[0]),
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].type[0]),
                                             memberdef[j]['$'].prot,
-                                            new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
-                                            new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0])))
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0]))
+                                        let paramdef = memberdef[j].param
+                                        if (paramdef) {
+                                            for (let k = 0; k < paramdef.length; ++k) {
+                                                newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */]())
+                                            }
+                                        }
+                                        self.functions.push(newFunctionDocumentation)
                                     }
                                 }
                             }
@@ -295,6 +304,7 @@ class FunctionDocumentation {
     constructor(name, returnType, accessibility, briefdescription, detaileddescription) {
         this.name = name
         this.returnType = returnType
+        this.parameters = [ ]
         this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
         this.briefdescription = briefdescription
         this.detaileddescription = detaileddescription
@@ -605,6 +615,24 @@ class InheritanceRelationship {
     getBaseClassName() {
         return this.baseclassname
     }
+}
+
+
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Parameter; });
+
+
+class Parameter {
+
+    constructor() {
+    }
+
 }
 
 

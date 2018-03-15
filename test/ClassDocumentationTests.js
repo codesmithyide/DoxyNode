@@ -14,6 +14,7 @@ module.exports = function(theTestHarness) {
     new tf.FunctionBasedTest("getBaseClasses test 2", ClassDocumentationGetBaseClassesTest2, testSequence)
 
     new tf.FunctionBasedTest("getListOfFunctions test 1", ClassDocumentationGetListOfFunctionsTest1, testSequence)
+    new tf.FunctionBasedTest("getListOfFunctions test 2", ClassDocumentationGetListOfFunctionsTest2, testSequence)
 }
 
 function ClassDocumentationCreationTest1(resolve, reject) {
@@ -80,6 +81,24 @@ function ClassDocumentationGetListOfFunctionsTest1(resolve, reject) {
                         (functions[0].name == "draw") &&
                         (functions[0].returnType.toHTML() == "void") &&
                         (functions[0].accessibility == doxynode.Accessibility.ePublic)) {
+                        outcome = tf.TestResultOutcome.ePassed
+                    }
+                    resolve(outcome)
+                })
+        })
+}
+
+function ClassDocumentationGetListOfFunctionsTest2(resolve, reject) {
+    let xmloutput = new doxynode.DoxygenXMLOutput()
+    xmloutput.initialize(__dirname + "/data/cpp-code-3/xml")
+        .then(function () {
+            xmloutput.readClassDocumentation("Rectangle")
+                .then(function (classDocumentation) {
+                    let outcome = tf.TestResultOutcome.eFailed
+                    let functions = classDocumentation.getListOfFunctions()
+                    if ((functions.length == 5) &&
+                        (functions[3].name == "setWidth") &&
+                        (functions[3].parameters.length == 1)) {
                         outcome = tf.TestResultOutcome.ePassed
                     }
                     resolve(outcome)

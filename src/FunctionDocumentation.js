@@ -21,6 +21,7 @@ class FunctionDocumentation {
     constructor(name, returnType, accessibility, briefdescription, detaileddescription) {
         this.name = name
         this.returnType = returnType
+        this.parameters = [ ]
         this.accessibility = FunctionDocumentation.toAccessibility(accessibility)
         this.briefdescription = briefdescription
         this.detaileddescription = detaileddescription

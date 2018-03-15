@@ -2,6 +2,7 @@
 
 import { InheritanceRelationship } from "./InheritanceRelationship.js"
 import { FunctionDocumentation } from "./FunctionDocumentation.js"
+import { Parameter } from "./Parameter.js"
 import { Description } from "./Description.js"
 
 const fs = require("fs")
@@ -48,12 +49,19 @@ export class ClassDocumentation {
                                 if (sectiondef[i]['$'].kind == "public-func") {
                                     let memberdef = sectiondef[i].memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
-                                        self.functions.push(new FunctionDocumentation(
+                                        let newFunctionDocumentation = new FunctionDocumentation(
                                             memberdef[j].name[0],
                                             new Description(memberdef[j].type[0]),
                                             memberdef[j]['$'].prot,
                                             new Description(memberdef[j].briefdescription[0]),
-                                            new Description(memberdef[j].detaileddescription[0])))
+                                            new Description(memberdef[j].detaileddescription[0]))
+                                        let paramdef = memberdef[j].param
+                                        if (paramdef) {
+                                            for (let k = 0; k < paramdef.length; ++k) {
+                                                newFunctionDocumentation.parameters.push(new Parameter())
+                                            }
+                                        }
+                                        self.functions.push(newFunctionDocumentation)
                                     }
                                 }
                             }
