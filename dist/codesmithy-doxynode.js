@@ -229,7 +229,7 @@ class ClassDocumentation {
                                     for (let j = 0; j < memberdef.length; ++j) {
                                         self.functions.push(new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
                                             memberdef[j].name[0],
-                                            memberdef[j].type[0],
+                                            new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].type[0]),
                                             memberdef[j]['$'].prot,
                                             new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
                                             new __WEBPACK_IMPORTED_MODULE_2__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0])))
@@ -284,7 +284,7 @@ class FunctionDocumentation {
 
     /**
       @param {string} name - The name of the function.
-      @paran {string} returnType - The return type of the function.
+      @paran {Description} returnType - The return type of the function.
       @param {Accessibility|string} accessibility - The
         accessibility of the function. Either one of the
         Accessibility enum values or one of the strings:
@@ -397,6 +397,8 @@ class Description {
                         result += "<p>" + this.trim(this.description.para[i]["_"]) + "</p>"
                     }
                 }
+            } else {
+                result = this.description
             }
         }
         return result

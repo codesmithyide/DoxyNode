@@ -10,7 +10,7 @@ class FunctionDocumentation {
 
     /**
       @param {string} name - The name of the function.
-      @paran {string} returnType - The return type of the function.
+      @paran {Description} returnType - The return type of the function.
       @param {Accessibility|string} accessibility - The
         accessibility of the function. Either one of the
         Accessibility enum values or one of the strings:

@@ -33,6 +33,8 @@ class Description {
                         result += "<p>" + this.trim(this.description.para[i]["_"]) + "</p>"
                     }
                 }
+            } else {
+                result = this.description
             }
         }
         return result

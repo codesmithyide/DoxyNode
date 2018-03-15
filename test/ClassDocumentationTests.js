@@ -78,7 +78,7 @@ function ClassDocumentationGetListOfFunctionsTest1(resolve, reject) {
                     let functions = classDocumentation.getListOfFunctions()
                     if ((functions.length == 1) && 
                         (functions[0].name == "draw") &&
-                        (functions[0].returnType == "void") &&
+                        (functions[0].returnType.toHTML() == "void") &&
                         (functions[0].accessibility == doxynode.Accessibility.ePublic)) {
                         outcome = tf.TestResultOutcome.ePassed
                     }

@@ -50,7 +50,7 @@ export class ClassDocumentation {
                                     for (let j = 0; j < memberdef.length; ++j) {
                                         self.functions.push(new FunctionDocumentation(
                                             memberdef[j].name[0],
-                                            memberdef[j].type[0],
+                                            new Description(memberdef[j].type[0]),
                                             memberdef[j]['$'].prot,
                                             new Description(memberdef[j].briefdescription[0]),
                                             new Description(memberdef[j].detaileddescription[0])))
