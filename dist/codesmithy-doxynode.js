@@ -339,7 +339,18 @@ var Accessibility = {
     /** protected access specifier */
     eProtected: 2,
     /** public access specifier */
-    ePublic: 4
+    ePublic: 4,
+
+    toString: function(level) {
+        switch (level) {
+            case Accessibility.ePrivate:
+                return "private"
+            case Accessibility.eProtected:
+                return "protected"
+            case Accessibility.ePublic:
+                return "public"
+        }
+    }
 }
 
 

@@ -16,7 +16,8 @@ function FunctionDocumentationCreationTest1(resolve, reject)
     let functiondocumentation = new doxynode.FunctionDocumentation("name1", "void", "public")
     if ((functiondocumentation.name == "name1") &&
         (functiondocumentation.returnType == "void") &&
-        (functiondocumentation.accessibility == doxynode.Accessibility.ePublic)) {
+        (functiondocumentation.accessibility == doxynode.Accessibility.ePublic) &&
+        (doxynode.Accessibility.toString(functiondocumentation.accessibility) == "public")) {
         outcome = tf.TestResultOutcome.ePassed
     }
     resolve(outcome)
@@ -28,7 +29,8 @@ function FunctionDocumentationCreationTest2(resolve, reject)
     let functiondocumentation = new doxynode.FunctionDocumentation("name1", "void", doxynode.Accessibility.ePrivate)
     if ((functiondocumentation.name == "name1") &&
         (functiondocumentation.returnType == "void") &&
-        (functiondocumentation.accessibility == doxynode.Accessibility.ePrivate)) {
+        (functiondocumentation.accessibility == doxynode.Accessibility.ePrivate) &&
+        (doxynode.Accessibility.toString(functiondocumentation.accessibility) == "private")) {
         outcome = tf.TestResultOutcome.ePassed
     }
     resolve(outcome)
