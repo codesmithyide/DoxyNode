@@ -58,7 +58,7 @@ export class ClassDocumentation {
                                         let paramdef = memberdef[j].param
                                         if (paramdef) {
                                             for (let k = 0; k < paramdef.length; ++k) {
-                                                newFunctionDocumentation.parameters.push(new Parameter())
+                                                newFunctionDocumentation.parameters.push(new Parameter(paramdef[k].type[0], paramdef[k].declname[0]))
                                             }
                                         }
                                         self.functions.push(newFunctionDocumentation)

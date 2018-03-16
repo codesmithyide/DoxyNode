@@ -98,7 +98,9 @@ function ClassDocumentationGetListOfFunctionsTest2(resolve, reject) {
                     let functions = classDocumentation.getListOfFunctions()
                     if ((functions.length == 5) &&
                         (functions[3].name == "setWidth") &&
-                        (functions[3].parameters.length == 1)) {
+                        (functions[3].parameters.length == 1) &&
+                        (functions[3].parameters[0].type == "int") &&
+                        (functions[3].parameters[0].name == "w")) {
                         outcome = tf.TestResultOutcome.ePassed
                     }
                     resolve(outcome)

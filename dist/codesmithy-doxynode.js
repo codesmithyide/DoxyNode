@@ -238,7 +238,7 @@ class ClassDocumentation {
                                         let paramdef = memberdef[j].param
                                         if (paramdef) {
                                             for (let k = 0; k < paramdef.length; ++k) {
-                                                newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */]())
+                                                newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramdef[k].type[0], paramdef[k].declname[0]))
                                             }
                                         }
                                         self.functions.push(newFunctionDocumentation)
@@ -630,7 +630,9 @@ class InheritanceRelationship {
 
 class Parameter {
 
-    constructor() {
+    constructor(type, name) {
+        this.type = type
+        this.name = name
     }
 
 }
