@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="_canvas_8h" kind="file" language="C++">
+    <compoundname>Canvas.h</compoundname>
+    <innerclass refid="class_canvas" prot="public">Canvas</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;Polygon.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_canvas" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_canvas" kindref="compound">Canvas</ref></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_canvas_1adff07c652e3310386441f7fa95e7bcec" kindref="member">add</ref>(<ref refid="class_polygon" kindref="compound">Polygon</ref>*<sp/>p);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Polygon*&gt;<sp/>m_polygons;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Canvas.h"/>
+  </compounddef>
+</doxygen>

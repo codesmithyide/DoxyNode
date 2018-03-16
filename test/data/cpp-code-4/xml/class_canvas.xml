@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.11">
+  <compounddef id="class_canvas" kind="class" language="C++" prot="public">
+    <compoundname>Canvas</compoundname>
+    <includes refid="_canvas_8h" local="no">Canvas.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_canvas_1a63bfa0d66f06d2d813cc66cbfde7fdf7" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="class_polygon" kindref="compound">Polygon</ref> * &gt;</type>
+        <definition>std::vector&lt;Polygon*&gt; Canvas::m_polygons</definition>
+        <argsstring></argsstring>
+        <name>m_polygons</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Canvas.h" line="13" column="1" bodyfile="Canvas.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_canvas_1adff07c652e3310386441f7fa95e7bcec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Canvas::add</definition>
+        <argsstring>(Polygon *p)</argsstring>
+        <name>add</name>
+        <param>
+          <type><ref refid="class_polygon" kindref="compound">Polygon</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Adds a polygon to the canvas. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The polygon. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Canvas.h" line="10" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class represents a canvas on which geometric shapes can be drawn. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Canvas.h" line="6" column="1" bodyfile="Canvas.h" bodystart="5" bodyend="14"/>
+    <listofallmembers>
+      <member refid="class_canvas_1adff07c652e3310386441f7fa95e7bcec" prot="public" virt="non-virtual"><scope>Canvas</scope><name>add</name></member>
+      <member refid="class_canvas_1a63bfa0d66f06d2d813cc66cbfde7fdf7" prot="private" virt="non-virtual"><scope>Canvas</scope><name>m_polygons</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
