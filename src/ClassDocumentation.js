@@ -81,10 +81,12 @@ export class ClassDocumentation {
         return result
     }
 
-    getListOfFunctions() {
+    getListOfFunctions(accessibility = null) {
         let result = [ ]
         for (let i = 0; i < this.functions.length; ++i) {
-            result.push(this.functions[i])
+            if ((accessibility == null) || (this.functions[i].accessibility == accessibility)) {
+                result.push(this.functions[i])
+            }
         }
         return result
     }
