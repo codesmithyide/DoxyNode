@@ -1,6 +1,6 @@
 {
   "name": "codesmithy-doxynode",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "A module to read the Doxygen XML output",
   "main": "dist/codesmithy-doxynode.js",
   "scripts": {
