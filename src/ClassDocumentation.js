@@ -44,29 +44,29 @@ export class ClassDocumentation {
                             self.name = classNode.getFirstChild("compoundname").node
                             self.briefdescription = new Description(classNode.getFirstChild("briefdescription").node)
                             self.detaileddescription = new Description(classNode.getFirstChild("detaileddescription").node)
-                            if (classNode.node.basecompoundref != null) {
-                                self.baseclasses.push(new InheritanceRelationship(classNode.node.basecompoundref[0]._))
+                            let baseNode = classNode.getFirstChild("basecompoundref")
+                            if (baseNode != null) {
+                                self.baseclasses.push(new InheritanceRelationship(baseNode.node._))
                             }
-                            let sectiondef = classNode.node.sectiondef
-                            if (sectiondef) {
-                                for (let i = 0; i < sectiondef.length; ++i) {
-                                    if (sectiondef[i]['$'].kind == "public-func") {
-                                        let memberdef = sectiondef[i].memberdef
-                                        for (let j = 0; j < memberdef.length; ++j) {
-                                            let newFunctionDocumentation = new FunctionDocumentation(
-                                                memberdef[j].name[0],
-                                                new Description(memberdef[j].type[0]),
-                                                memberdef[j]['$'].prot,
-                                                new Description(memberdef[j].briefdescription[0]),
-                                                new Description(memberdef[j].detaileddescription[0]))
-                                            let paramdef = memberdef[j].param
-                                            if (paramdef) {
-                                                for (let k = 0; k < paramdef.length; ++k) {
-                                                    newFunctionDocumentation.parameters.push(new Parameter(paramdef[k].type[0], paramdef[k].declname[0]))
-                                                }
+                            let sectionNodes = classNode.getChildren("sectiondef")
+                            for (let i = 0; i < sectionNodes.length; ++i) {
+                                let sectionNode = sectionNodes[i].node
+                                if (sectionNode['$'].kind == "public-func") {
+                                    let memberdef = sectionNode.memberdef
+                                    for (let j = 0; j < memberdef.length; ++j) {
+                                        let newFunctionDocumentation = new FunctionDocumentation(
+                                            memberdef[j].name[0],
+                                            new Description(memberdef[j].type[0]),
+                                            memberdef[j]['$'].prot,
+                                            new Description(memberdef[j].briefdescription[0]),
+                                            new Description(memberdef[j].detaileddescription[0]))
+                                        let paramdef = memberdef[j].param
+                                        if (paramdef) {
+                                            for (let k = 0; k < paramdef.length; ++k) {
+                                                newFunctionDocumentation.parameters.push(new Parameter(paramdef[k].type[0], paramdef[k].declname[0]))
                                             }
-                                            self.functions.push(newFunctionDocumentation)
                                         }
+                                        self.functions.push(newFunctionDocumentation)
                                     }
                                 }
                             }

@@ -225,29 +225,29 @@ class ClassDocumentation {
                             self.name = classNode.getFirstChild("compoundname").node
                             self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.getFirstChild("briefdescription").node)
                             self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.getFirstChild("detaileddescription").node)
-                            if (classNode.node.basecompoundref != null) {
-                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.node.basecompoundref[0]._))
+                            let baseNode = classNode.getFirstChild("basecompoundref")
+                            if (baseNode != null) {
+                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](baseNode.node._))
                             }
-                            let sectiondef = classNode.node.sectiondef
-                            if (sectiondef) {
-                                for (let i = 0; i < sectiondef.length; ++i) {
-                                    if (sectiondef[i]['$'].kind == "public-func") {
-                                        let memberdef = sectiondef[i].memberdef
-                                        for (let j = 0; j < memberdef.length; ++j) {
-                                            let newFunctionDocumentation = new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
-                                                memberdef[j].name[0],
-                                                new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].type[0]),
-                                                memberdef[j]['$'].prot,
-                                                new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
-                                                new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0]))
-                                            let paramdef = memberdef[j].param
-                                            if (paramdef) {
-                                                for (let k = 0; k < paramdef.length; ++k) {
-                                                    newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramdef[k].type[0], paramdef[k].declname[0]))
-                                                }
+                            let sectionNodes = classNode.getChildren("sectiondef")
+                            for (let i = 0; i < sectionNodes.length; ++i) {
+                                let sectionNode = sectionNodes[i].node
+                                if (sectionNode['$'].kind == "public-func") {
+                                    let memberdef = sectionNode.memberdef
+                                    for (let j = 0; j < memberdef.length; ++j) {
+                                        let newFunctionDocumentation = new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
+                                            memberdef[j].name[0],
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].type[0]),
+                                            memberdef[j]['$'].prot,
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0]))
+                                        let paramdef = memberdef[j].param
+                                        if (paramdef) {
+                                            for (let k = 0; k < paramdef.length; ++k) {
+                                                newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramdef[k].type[0], paramdef[k].declname[0]))
                                             }
-                                            self.functions.push(newFunctionDocumentation)
                                         }
+                                        self.functions.push(newFunctionDocumentation)
                                     }
                                 }
                             }
@@ -694,6 +694,19 @@ class XMLNode {
             }
         }
         return null
+    }
+
+    getChildren(name) {
+        let result = [ ]
+        if (this.node) {
+            let namedNode = this.node[name]
+            if (namedNode) {
+                for (let i = 0; i < namedNode.length; ++i) {
+                    result.push(new XMLNode(namedNode[i]))
+                }
+            }
+        }
+        return result
     }
 
 }

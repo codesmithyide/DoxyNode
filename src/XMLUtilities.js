@@ -39,6 +39,19 @@ class XMLNode {
         return null
     }
 
+    getChildren(name) {
+        let result = [ ]
+        if (this.node) {
+            let namedNode = this.node[name]
+            if (namedNode) {
+                for (let i = 0; i < namedNode.length; ++i) {
+                    result.push(new XMLNode(namedNode[i]))
+                }
+            }
+        }
+        return result
+    }
+
 }
 
 export { XMLParser }
