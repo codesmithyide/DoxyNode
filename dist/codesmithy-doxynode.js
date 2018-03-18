@@ -217,13 +217,14 @@ class ClassDocumentation {
                 } else {
                     let parser = new xml2js.Parser();
                     parser.parseString(data, function (err, result) {
-                        self.name = result.doxygen.compounddef[0].compoundname[0]
-                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](result.doxygen.compounddef[0].briefdescription)
-                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](result.doxygen.compounddef[0].detaileddescription)
-                        if (result.doxygen.compounddef[0].basecompoundref != null) {
-                            self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](result.doxygen.compounddef[0].basecompoundref[0]._))
+                        let classNode = result.doxygen.compounddef[0]
+                        self.name = classNode.compoundname[0]
+                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.briefdescription)
+                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.detaileddescription)
+                        if (classNode.basecompoundref != null) {
+                            self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.basecompoundref[0]._))
                         }
-                        let sectiondef = result.doxygen.compounddef[0].sectiondef
+                        let sectiondef = classNode.sectiondef
                         if (sectiondef) {
                             for (let i = 0; i < sectiondef.length; ++i) {
                                 if (sectiondef[i]['$'].kind == "public-func") {
