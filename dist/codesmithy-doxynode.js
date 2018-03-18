@@ -178,6 +178,8 @@ class IndexFile {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Parameter_js__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Description_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__XMLUtilities_js__ = __webpack_require__(13);
+
 
 
 
@@ -186,7 +188,6 @@ class IndexFile {
 
 
 const fs = __webpack_require__(0)
-const xml2js = __webpack_require__(1)
 
 /**
   <p>This class provides functions to read the
@@ -215,7 +216,7 @@ class ClassDocumentation {
                 if (err) {
                     reject(err)
                 } else {
-                    let parser = new xml2js.Parser();
+                    let parser = new __WEBPACK_IMPORTED_MODULE_4__XMLUtilities_js__["a" /* XMLParser */]();
                     parser.parseString(data, function (err, result) {
                         let classNode = result.doxygen.compounddef[0]
                         self.name = classNode.compoundname[0]
@@ -639,6 +640,52 @@ class Parameter {
     }
 
 }
+
+
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return XMLParser; });
+/* unused harmony export XMLNode */
+
+
+const xml2js = __webpack_require__(1)
+
+class XMLParser {
+
+    constructor() {
+        this.parser = new xml2js.Parser();
+    }
+
+    parseString(str, cb) {
+        this.parser.parseString(str, cb)
+    }
+
+}
+
+class XMLNode {
+
+    constructor(node) {
+        this.node = node
+    }
+
+    getFirstChild(name) {
+        let children = this.node
+        if (children) {
+            let namedChildren = children[name]
+            if (namedChildren && (namedChildren.length > 0)) {
+                return new XMLNode(namedChildren[0])
+            }
+        }
+        return null
+    }
+
+}
+
 
 
 

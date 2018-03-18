@@ -4,9 +4,9 @@ import { InheritanceRelationship } from "./InheritanceRelationship.js"
 import { FunctionDocumentation } from "./FunctionDocumentation.js"
 import { Parameter } from "./Parameter.js"
 import { Description } from "./Description.js"
+import { XMLParser } from "./XMLUtilities.js"
 
 const fs = require("fs")
-const xml2js = require("xml2js")
 
 /**
   <p>This class provides functions to read the
@@ -35,7 +35,7 @@ export class ClassDocumentation {
                 if (err) {
                     reject(err)
                 } else {
-                    let parser = new xml2js.Parser();
+                    let parser = new XMLParser();
                     parser.parseString(data, function (err, result) {
                         let classNode = result.doxygen.compounddef[0]
                         self.name = classNode.compoundname[0]
