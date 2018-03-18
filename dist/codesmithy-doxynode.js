@@ -218,37 +218,42 @@ class ClassDocumentation {
                 } else {
                     let parser = new __WEBPACK_IMPORTED_MODULE_4__XMLUtilities_js__["a" /* XMLParser */]();
                     parser.parseString(data, function (err, result) {
-                        let classNode = result.doxygen.compounddef[0]
-                        self.name = classNode.compoundname[0]
-                        self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.briefdescription)
-                        self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.detaileddescription)
-                        if (classNode.basecompoundref != null) {
-                            self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.basecompoundref[0]._))
-                        }
-                        let sectiondef = classNode.sectiondef
-                        if (sectiondef) {
-                            for (let i = 0; i < sectiondef.length; ++i) {
-                                if (sectiondef[i]['$'].kind == "public-func") {
-                                    let memberdef = sectiondef[i].memberdef
-                                    for (let j = 0; j < memberdef.length; ++j) {
-                                        let newFunctionDocumentation = new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
-                                            memberdef[j].name[0],
-                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].type[0]),
-                                            memberdef[j]['$'].prot,
-                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
-                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0]))
-                                        let paramdef = memberdef[j].param
-                                        if (paramdef) {
-                                            for (let k = 0; k < paramdef.length; ++k) {
-                                                newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramdef[k].type[0], paramdef[k].declname[0]))
+                        if (err) {
+                            reject(err)
+                        } else {
+                            result = result.node
+                            let classNode = result.doxygen.compounddef[0]
+                            self.name = classNode.compoundname[0]
+                            self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.briefdescription)
+                            self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.detaileddescription)
+                            if (classNode.basecompoundref != null) {
+                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.basecompoundref[0]._))
+                            }
+                            let sectiondef = classNode.sectiondef
+                            if (sectiondef) {
+                                for (let i = 0; i < sectiondef.length; ++i) {
+                                    if (sectiondef[i]['$'].kind == "public-func") {
+                                        let memberdef = sectiondef[i].memberdef
+                                        for (let j = 0; j < memberdef.length; ++j) {
+                                            let newFunctionDocumentation = new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
+                                                memberdef[j].name[0],
+                                                new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].type[0]),
+                                                memberdef[j]['$'].prot,
+                                                new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].briefdescription[0]),
+                                                new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberdef[j].detaileddescription[0]))
+                                            let paramdef = memberdef[j].param
+                                            if (paramdef) {
+                                                for (let k = 0; k < paramdef.length; ++k) {
+                                                    newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramdef[k].type[0], paramdef[k].declname[0]))
+                                                }
                                             }
+                                            self.functions.push(newFunctionDocumentation)
                                         }
-                                        self.functions.push(newFunctionDocumentation)
                                     }
                                 }
                             }
+                            resolve()  
                         }
-                        resolve()  
                     })
                 }
             })
@@ -662,7 +667,13 @@ class XMLParser {
     }
 
     parseString(str, cb) {
-        this.parser.parseString(str, cb)
+        this.parser.parseString(str, function (err, result) {
+            let resultNode = result
+            if (!err) {
+                resultNode = new XMLNode(result)
+            }
+            cb(err, resultNode)
+        })
     }
 
 }

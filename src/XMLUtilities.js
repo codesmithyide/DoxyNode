@@ -1,5 +1,25 @@
 'use strict'
 
+const xml2js = require("xml2js")
+
+class XMLParser {
+
+    constructor() {
+        this.parser = new xml2js.Parser();
+    }
+
+    parseString(str, cb) {
+        this.parser.parseString(str, function (err, result) {
+            let resultNode = result
+            if (!err) {
+                resultNode = new XMLNode(result)
+            }
+            cb(err, resultNode)
+        })
+    }
+
+}
+
 class XMLNode {
 
     constructor(node) {
@@ -19,4 +39,5 @@ class XMLNode {
 
 }
 
+export { XMLParser }
 export { XMLNode }

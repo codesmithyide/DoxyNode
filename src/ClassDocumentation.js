@@ -37,37 +37,42 @@ export class ClassDocumentation {
                 } else {
                     let parser = new XMLParser();
                     parser.parseString(data, function (err, result) {
-                        let classNode = result.doxygen.compounddef[0]
-                        self.name = classNode.compoundname[0]
-                        self.briefdescription = new Description(classNode.briefdescription)
-                        self.detaileddescription = new Description(classNode.detaileddescription)
-                        if (classNode.basecompoundref != null) {
-                            self.baseclasses.push(new InheritanceRelationship(classNode.basecompoundref[0]._))
-                        }
-                        let sectiondef = classNode.sectiondef
-                        if (sectiondef) {
-                            for (let i = 0; i < sectiondef.length; ++i) {
-                                if (sectiondef[i]['$'].kind == "public-func") {
-                                    let memberdef = sectiondef[i].memberdef
-                                    for (let j = 0; j < memberdef.length; ++j) {
-                                        let newFunctionDocumentation = new FunctionDocumentation(
-                                            memberdef[j].name[0],
-                                            new Description(memberdef[j].type[0]),
-                                            memberdef[j]['$'].prot,
-                                            new Description(memberdef[j].briefdescription[0]),
-                                            new Description(memberdef[j].detaileddescription[0]))
-                                        let paramdef = memberdef[j].param
-                                        if (paramdef) {
-                                            for (let k = 0; k < paramdef.length; ++k) {
-                                                newFunctionDocumentation.parameters.push(new Parameter(paramdef[k].type[0], paramdef[k].declname[0]))
+                        if (err) {
+                            reject(err)
+                        } else {
+                            result = result.node
+                            let classNode = result.doxygen.compounddef[0]
+                            self.name = classNode.compoundname[0]
+                            self.briefdescription = new Description(classNode.briefdescription)
+                            self.detaileddescription = new Description(classNode.detaileddescription)
+                            if (classNode.basecompoundref != null) {
+                                self.baseclasses.push(new InheritanceRelationship(classNode.basecompoundref[0]._))
+                            }
+                            let sectiondef = classNode.sectiondef
+                            if (sectiondef) {
+                                for (let i = 0; i < sectiondef.length; ++i) {
+                                    if (sectiondef[i]['$'].kind == "public-func") {
+                                        let memberdef = sectiondef[i].memberdef
+                                        for (let j = 0; j < memberdef.length; ++j) {
+                                            let newFunctionDocumentation = new FunctionDocumentation(
+                                                memberdef[j].name[0],
+                                                new Description(memberdef[j].type[0]),
+                                                memberdef[j]['$'].prot,
+                                                new Description(memberdef[j].briefdescription[0]),
+                                                new Description(memberdef[j].detaileddescription[0]))
+                                            let paramdef = memberdef[j].param
+                                            if (paramdef) {
+                                                for (let k = 0; k < paramdef.length; ++k) {
+                                                    newFunctionDocumentation.parameters.push(new Parameter(paramdef[k].type[0], paramdef[k].declname[0]))
+                                                }
                                             }
+                                            self.functions.push(newFunctionDocumentation)
                                         }
-                                        self.functions.push(newFunctionDocumentation)
                                     }
                                 }
                             }
+                            resolve()  
                         }
-                        resolve()  
                     })
                 }
             })
