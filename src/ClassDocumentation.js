@@ -52,15 +52,16 @@ export class ClassDocumentation {
                             for (let i = 0; i < sectionNodes.length; ++i) {
                                 let sectionNode = sectionNodes[i]
                                 if (sectionNode.getAttribute("kind") == "public-func") {
-                                    let memberdef = sectionNode.node.memberdef
-                                    for (let j = 0; j < memberdef.length; ++j) {
+                                    let memberNodes = sectionNode.getChildren("memberdef")
+                                    for (let j = 0; j < memberNodes.length; ++j) {
+                                        let memberNode = memberNodes[j]
                                         let newFunctionDocumentation = new FunctionDocumentation(
-                                            memberdef[j].name[0],
-                                            new Description(memberdef[j].type[0]),
-                                            memberdef[j]['$'].prot,
-                                            new Description(memberdef[j].briefdescription[0]),
-                                            new Description(memberdef[j].detaileddescription[0]))
-                                        let paramdef = memberdef[j].param
+                                            memberNode.node.name[0],
+                                            new Description(memberNode.node.type[0]),
+                                            memberNode.node['$'].prot,
+                                            new Description(memberNode.node.briefdescription[0]),
+                                            new Description(memberNode.node.detaileddescription[0]))
+                                        let paramdef = memberNode.node.param
                                         if (paramdef) {
                                             for (let k = 0; k < paramdef.length; ++k) {
                                                 newFunctionDocumentation.parameters.push(new Parameter(paramdef[k].type[0], paramdef[k].declname[0]))
