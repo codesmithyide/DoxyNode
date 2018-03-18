@@ -27,16 +27,17 @@ class XMLNode {
     }
 
     getFirstChild(name) {
+        let result = null
         if (this.node) {
             if (this.node[name]) {
                 if (Array.isArray(this.node[name])) {
-                    return new XMLNode(this.node[name][0])
+                    result = new XMLNode(this.node[name][0])
                 } else {
-                    return new XMLNode(this.node[name])
+                    result = new XMLNode(this.node[name])
                 }
             }
         }
-        return null
+        return result
     }
 
     getChildren(name) {
@@ -48,6 +49,14 @@ class XMLNode {
                     result.push(new XMLNode(namedNode[i]))
                 }
             }
+        }
+        return result
+    }
+
+    getAttribute(name) {
+        let result = null
+        if (this.node) {
+            result = this.node['$'][name]
         }
         return result
     }

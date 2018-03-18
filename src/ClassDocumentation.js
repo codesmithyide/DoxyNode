@@ -50,9 +50,9 @@ export class ClassDocumentation {
                             }
                             let sectionNodes = classNode.getChildren("sectiondef")
                             for (let i = 0; i < sectionNodes.length; ++i) {
-                                let sectionNode = sectionNodes[i].node
-                                if (sectionNode['$'].kind == "public-func") {
-                                    let memberdef = sectionNode.memberdef
+                                let sectionNode = sectionNodes[i]
+                                if (sectionNode.getAttribute("kind") == "public-func") {
+                                    let memberdef = sectionNode.node.memberdef
                                     for (let j = 0; j < memberdef.length; ++j) {
                                         let newFunctionDocumentation = new FunctionDocumentation(
                                             memberdef[j].name[0],
