@@ -242,11 +242,12 @@ class ClassDocumentation {
                                             memberNode.getAttribute("prot"),
                                             new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.getFirstChild("briefdescription").node),
                                             new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.getFirstChild("detaileddescription").node))
-                                        let paramdef = memberNode.node.param
-                                        if (paramdef) {
-                                            for (let k = 0; k < paramdef.length; ++k) {
-                                                newFunctionDocumentation.parameters.push(new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramdef[k].type[0], paramdef[k].declname[0]))
-                                            }
+                                        let paramNodes = memberNode.getChildren("param")
+                                        for (let k = 0; k < paramNodes.length; ++k) {
+                                            let paramNode = paramNodes[k]
+                                            newFunctionDocumentation.parameters.push(
+                                                new __WEBPACK_IMPORTED_MODULE_2__Parameter_js__["a" /* Parameter */](paramNode.getFirstChild("type").node, paramNode.getFirstChild("declname").node)
+                                                )
                                         }
                                         self.functions.push(newFunctionDocumentation)
                                     }
