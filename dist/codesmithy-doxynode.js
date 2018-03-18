@@ -222,13 +222,13 @@ class ClassDocumentation {
                             reject(err)
                         } else {
                             let classNode = result.getFirstChild("doxygen").getFirstChild("compounddef")
-                            self.name = classNode.node[0].compoundname[0]
-                            self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.node[0].briefdescription)
-                            self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.node[0].detaileddescription)
-                            if (classNode.node[0].basecompoundref != null) {
-                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.node[0].basecompoundref[0]._))
+                            self.name = classNode.getFirstChild("compoundname").node
+                            self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.getFirstChild("briefdescription").node)
+                            self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.getFirstChild("detaileddescription").node)
+                            if (classNode.node.basecompoundref != null) {
+                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.node.basecompoundref[0]._))
                             }
-                            let sectiondef = classNode.node[0].sectiondef
+                            let sectiondef = classNode.node.sectiondef
                             if (sectiondef) {
                                 for (let i = 0; i < sectiondef.length; ++i) {
                                     if (sectiondef[i]['$'].kind == "public-func") {
@@ -685,8 +685,16 @@ class XMLNode {
 
     getFirstChild(name) {
         if (this.node) {
-            if (this.node[name]) {
-                return new XMLNode(this.node[name])
+            if (Array.isArray(this.node)) {
+
+            } else {
+                if (this.node[name]) {
+                    if (Array.isArray(this.node[name])) {
+                        return new XMLNode(this.node[name][0])
+                    } else {
+                        return new XMLNode(this.node[name])
+                    }
+                }
             }
         }
         return null

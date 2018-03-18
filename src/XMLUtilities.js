@@ -28,8 +28,16 @@ class XMLNode {
 
     getFirstChild(name) {
         if (this.node) {
-            if (this.node[name]) {
-                return new XMLNode(this.node[name])
+            if (Array.isArray(this.node)) {
+
+            } else {
+                if (this.node[name]) {
+                    if (Array.isArray(this.node[name])) {
+                        return new XMLNode(this.node[name][0])
+                    } else {
+                        return new XMLNode(this.node[name])
+                    }
+                }
             }
         }
         return null
