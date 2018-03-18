@@ -56,11 +56,11 @@ export class ClassDocumentation {
                                     for (let j = 0; j < memberNodes.length; ++j) {
                                         let memberNode = memberNodes[j]
                                         let newFunctionDocumentation = new FunctionDocumentation(
-                                            memberNode.node.name[0],
-                                            new Description(memberNode.node.type[0]),
-                                            memberNode.node['$'].prot,
-                                            new Description(memberNode.node.briefdescription[0]),
-                                            new Description(memberNode.node.detaileddescription[0]))
+                                            memberNode.getFirstChild("name").node,
+                                            new Description(memberNode.getFirstChild("type").node),
+                                            memberNode.getAttribute("prot"),
+                                            new Description(memberNode.getFirstChild("briefdescription").node),
+                                            new Description(memberNode.getFirstChild("detaileddescription").node))
                                         let paramdef = memberNode.node.param
                                         if (paramdef) {
                                             for (let k = 0; k < paramdef.length; ++k) {

@@ -237,11 +237,11 @@ class ClassDocumentation {
                                     for (let j = 0; j < memberNodes.length; ++j) {
                                         let memberNode = memberNodes[j]
                                         let newFunctionDocumentation = new __WEBPACK_IMPORTED_MODULE_1__FunctionDocumentation_js__["a" /* FunctionDocumentation */](
-                                            memberNode.node.name[0],
-                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.node.type[0]),
-                                            memberNode.node['$'].prot,
-                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.node.briefdescription[0]),
-                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.node.detaileddescription[0]))
+                                            memberNode.getFirstChild("name").node,
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.getFirstChild("type").node),
+                                            memberNode.getAttribute("prot"),
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.getFirstChild("briefdescription").node),
+                                            new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](memberNode.getFirstChild("detaileddescription").node))
                                         let paramdef = memberNode.node.param
                                         if (paramdef) {
                                             for (let k = 0; k < paramdef.length; ++k) {
