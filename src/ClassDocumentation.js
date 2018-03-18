@@ -40,15 +40,14 @@ export class ClassDocumentation {
                         if (err) {
                             reject(err)
                         } else {
-                            result = result.node
-                            let classNode = result.doxygen.compounddef[0]
-                            self.name = classNode.compoundname[0]
-                            self.briefdescription = new Description(classNode.briefdescription)
-                            self.detaileddescription = new Description(classNode.detaileddescription)
-                            if (classNode.basecompoundref != null) {
-                                self.baseclasses.push(new InheritanceRelationship(classNode.basecompoundref[0]._))
+                            let classNode = result.getFirstChild("doxygen").getFirstChild("compounddef")
+                            self.name = classNode.node[0].compoundname[0]
+                            self.briefdescription = new Description(classNode.node[0].briefdescription)
+                            self.detaileddescription = new Description(classNode.node[0].detaileddescription)
+                            if (classNode.node[0].basecompoundref != null) {
+                                self.baseclasses.push(new InheritanceRelationship(classNode.node[0].basecompoundref[0]._))
                             }
-                            let sectiondef = classNode.sectiondef
+                            let sectiondef = classNode.node[0].sectiondef
                             if (sectiondef) {
                                 for (let i = 0; i < sectiondef.length; ++i) {
                                     if (sectiondef[i]['$'].kind == "public-func") {

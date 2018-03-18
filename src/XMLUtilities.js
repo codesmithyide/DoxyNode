@@ -27,11 +27,9 @@ class XMLNode {
     }
 
     getFirstChild(name) {
-        let children = this.node
-        if (children) {
-            let namedChildren = children[name]
-            if (namedChildren && (namedChildren.length > 0)) {
-                return new XMLNode(namedChildren[0])
+        if (this.node) {
+            if (this.node[name]) {
+                return new XMLNode(this.node[name])
             }
         }
         return null

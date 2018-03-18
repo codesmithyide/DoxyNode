@@ -221,15 +221,14 @@ class ClassDocumentation {
                         if (err) {
                             reject(err)
                         } else {
-                            result = result.node
-                            let classNode = result.doxygen.compounddef[0]
-                            self.name = classNode.compoundname[0]
-                            self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.briefdescription)
-                            self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.detaileddescription)
-                            if (classNode.basecompoundref != null) {
-                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.basecompoundref[0]._))
+                            let classNode = result.getFirstChild("doxygen").getFirstChild("compounddef")
+                            self.name = classNode.node[0].compoundname[0]
+                            self.briefdescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.node[0].briefdescription)
+                            self.detaileddescription = new __WEBPACK_IMPORTED_MODULE_3__Description_js__["a" /* Description */](classNode.node[0].detaileddescription)
+                            if (classNode.node[0].basecompoundref != null) {
+                                self.baseclasses.push(new __WEBPACK_IMPORTED_MODULE_0__InheritanceRelationship_js__["a" /* InheritanceRelationship */](classNode.node[0].basecompoundref[0]._))
                             }
-                            let sectiondef = classNode.sectiondef
+                            let sectiondef = classNode.node[0].sectiondef
                             if (sectiondef) {
                                 for (let i = 0; i < sectiondef.length; ++i) {
                                     if (sectiondef[i]['$'].kind == "public-func") {
@@ -685,11 +684,9 @@ class XMLNode {
     }
 
     getFirstChild(name) {
-        let children = this.node
-        if (children) {
-            let namedChildren = children[name]
-            if (namedChildren && (namedChildren.length > 0)) {
-                return new XMLNode(namedChildren[0])
+        if (this.node) {
+            if (this.node[name]) {
+                return new XMLNode(this.node[name])
             }
         }
         return null
